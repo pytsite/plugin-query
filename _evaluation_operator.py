@@ -6,6 +6,9 @@ __license__ = 'MIT'
 
 from ._operator import Operator as _Operator, FieldOperator as _FieldOperator
 
+_SUPPORTED_LANGS = ('da', 'nl', 'en', 'fi', 'fr', 'de', 'hu', 'it', 'nb', 'pt', 'ro', 'ru', 'es', 'sv', 'tr',
+                    'ara', 'prs', 'pes', 'urd', 'zhs', 'zht')
+
 
 class EvaluationOperator(_Operator):
     pass
@@ -26,7 +29,7 @@ class Text(EvaluationOperator):
         return {
             '$text': {
                 '$search': self._search,
-                '$language': self._language,
+                '$language': self._language if self._language in _SUPPORTED_LANGS else 'none',
                 '$caseSensitive': self._case_sensitive,
                 '$diacriticSensitive': self._diacritic_sensitive,
             }
