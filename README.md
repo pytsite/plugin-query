@@ -4,6 +4,17 @@
 ## Changelog
 
 
+### 1.1 (2018-01-07)
+
+- New `Query.operators` getter and setter.
+- New methods in `Query`: `__eq__()`, `__getitem__()`, `__delitem__()`,
+  `__contains__`.
+- New methods in `Operator`: `__str__()`, `__eq__()`.
+- New methods in `LogicalOperator`: `add()`, `__getitem()__`,
+  `__delitem__()`, `__contains__()`.
+- Unnecessary `query` arg removed from `Query.__init__()`.
+
+
 ### 1.0.2 (2018-10-05)
 
 Cleanup.

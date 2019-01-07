@@ -7,33 +7,27 @@ __license__ = 'MIT'
 from typing import Union as _Union, List as _List, Iterator as _Iterator
 from pytsite import util as _util
 from ._operator import Operator as _Operator
-from ._logical_operator import LogicalOperator as _LogicalOperator, And as _And
 
 
 class Query:
-    def __init__(self, operators: _Union[_Operator, _Iterator[_Operator]] = None, query = None):
+    def __init__(self, operators: _Union[_Operator, _Iterator[_Operator]] = None):
         self._operators = []  # type: _List[_Operator]
 
         if operators:
-            if not isinstance(operators, (list, tuple)):
-                operators = [operators]
-
-            for op in operators:
+            for op in operators if hasattr(operators, '__iter__') else [operators]:
                 self.add(op)
 
-        if isinstance(query, Query):
-            for op in query:
-                self.add(op)
+    @property
+    def operators(self) -> _List[_Operator]:
+        return self._operators
+
+    @operators.setter
+    def operators(self, value: _List[_Operator]):
+        self._operators = value
 
     def add(self, op: _Operator):
         """Add a query clause
         """
-        if not isinstance(op, _Operator):
-            raise TypeError('{} expected, got {}'.format(_Operator, type(op)))
-
-        if not isinstance(op, _LogicalOperator):
-            op = _And(op)
-
         self._operators.append(op)
 
         return op
@@ -48,6 +42,9 @@ class Query:
 
         return r
 
+    def __eq__(self, other) -> bool:
+        return self.compile() == other.compile()
+
     def __len__(self) -> int:
         return len(self._operators)
 
@@ -56,3 +53,12 @@ class Query:
 
     def __str__(self) -> str:
         return str(self.compile())
+
+    def __getitem__(self, key):
+        return self._operators[key]
+
+    def __delitem__(self, key):
+        del self._operators[key]
+
+    def __contains__(self, item):
+        return item in self._operators

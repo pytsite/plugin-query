@@ -15,6 +15,12 @@ class Operator:
         """
         raise NotImplementedError()
 
+    def __str__(self) -> str:
+        return str(self.compile())
+
+    def __eq__(self, other) -> bool:
+        return self.compile() == other.compile()
+
 
 class FieldOperator(Operator):
     def __init__(self, field: str):
