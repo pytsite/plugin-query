@@ -11,6 +11,8 @@ from ._operator import Operator as _Operator
 
 class Query:
     def __init__(self, operators: _Union[_Operator, _Iterator[_Operator]] = None):
+        """Init
+        """
         self._operators = []  # type: _List[_Operator]
 
         if operators:
@@ -19,14 +21,18 @@ class Query:
 
     @property
     def operators(self) -> _List[_Operator]:
+        """Get operators
+        """
         return self._operators
 
     @operators.setter
     def operators(self, value: _List[_Operator]):
+        """Set operators
+        """
         self._operators = value
 
     def add(self, op: _Operator):
-        """Add a query clause
+        """Add an operator
         """
         self._operators.append(op)
 
@@ -46,7 +52,7 @@ class Query:
         return self.compile() == other.compile()
 
     def __len__(self) -> int:
-        return len(self._operators)
+        return len(self.compile())
 
     def __iter__(self) -> _Iterator[_Operator]:
         return iter(self._operators)

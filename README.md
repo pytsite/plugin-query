@@ -4,6 +4,13 @@
 ## Changelog
 
 
+### 1.2 (2018-01-09)
+
+- `LogicalOperator.operators` constructor made required.
+- `LogicalOperator.compile()`'s return value cleanup added.
+- Incorrect `Query.__len__()`'s return value fixed.
+
+
 ### 1.1 (2018-01-07)
 
 - New `Query.operators` getter and setter.

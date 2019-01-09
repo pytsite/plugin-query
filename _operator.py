@@ -21,6 +21,9 @@ class Operator:
     def __eq__(self, other) -> bool:
         return self.compile() == other.compile()
 
+    def __len__(self) -> int:
+        raise NotImplementedError()
+
 
 class FieldOperator(Operator):
     def __init__(self, field: str):
@@ -29,3 +32,6 @@ class FieldOperator(Operator):
     @property
     def field(self) -> str:
         return self._field
+
+    def __len__(self) -> int:
+        return 1

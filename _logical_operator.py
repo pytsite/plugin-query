@@ -9,14 +9,12 @@ from ._operator import Operator as _Operator
 
 
 class LogicalOperator(_Operator):
-    def __init__(self, operators: _Union[_Operator, _Iterator[_Operator]] = None):
+    def __init__(self, operators: _Union[_Operator, _Iterator[_Operator]]):
         """Init
         """
         self._operators = []    # type: [_Operator]
-
-        if operators:
-            for op in operators if hasattr(operators, '__iter__') else [operators]:
-                self.add(op)
+        for op in operators if hasattr(operators, '__iter__') else [operators]:
+            self.add(op)
 
     def add(self, op: _Operator):
         if not isinstance(op, _Operator):
@@ -27,7 +25,9 @@ class LogicalOperator(_Operator):
     def compile(self) -> dict:
         """Get data representation of operator's content
         """
-        return {self.name: [op.compile() for op in self]}
+        r = {self.name: [op.compile() for op in self if op]}
+
+        return r if r[self.name] else {}
 
     def __len__(self):
         return len(self._operators)
