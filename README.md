@@ -4,6 +4,11 @@
 ## Changelog
 
 
+### 1.3 (2018-01-10)
+
+New method `Query.rm_field()` added.
+
+
 ### 1.2 (2018-01-09)
 
 - `LogicalOperator.operators` constructor made required.

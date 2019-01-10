@@ -6,7 +6,8 @@ __license__ = 'MIT'
 
 from typing import Union as _Union, List as _List, Iterator as _Iterator
 from pytsite import util as _util
-from ._operator import Operator as _Operator
+from ._operator import Operator as _Operator, FieldOperator as _FieldOperator
+from ._logical_operator import LogicalOperator as _LogicalOperator
 
 
 class Query:
@@ -37,6 +38,24 @@ class Query:
         self._operators.append(op)
 
         return op
+
+    def rm_field(self, field: str, _root: _Operator = None):
+        """Remove all FieldOperators of particular field
+        """
+        if _root is None:
+            _root = self
+
+        ops_to_del = []
+        for i, op in enumerate(_root):
+            if isinstance(op, _LogicalOperator):
+                self.rm_field(field, op)
+            elif isinstance(op, _FieldOperator) and op.field == field:
+                ops_to_del.append(i)
+
+        for i in ops_to_del:
+            del _root[i]
+
+        return self
 
     def compile(self) -> dict:
         """Compile the query
