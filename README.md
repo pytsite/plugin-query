@@ -4,19 +4,24 @@
 ## Changelog
 
 
-### 1.3 (2018-01-10)
+### 1.3.1 (2019-02-14)
+
+Missing `__len()__` implementations added.
+
+
+### 1.3 (2019-01-10)
 
 New method `Query.rm_field()` added.
 
 
-### 1.2 (2018-01-09)
+### 1.2 (2019-01-09)
 
 - `LogicalOperator.operators` constructor made required.
 - `LogicalOperator.compile()`'s return value cleanup added.
 - Incorrect `Query.__len__()`'s return value fixed.
 
 
-### 1.1 (2018-01-07)
+### 1.1 (2019-01-07)
 
 - New `Query.operators` getter and setter.
 - New methods in `Query`: `__eq__()`, `__getitem__()`, `__delitem__()`,

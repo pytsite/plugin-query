@@ -35,6 +35,9 @@ class Text(EvaluationOperator):
             }
         }
 
+    def __len__(self) -> int:
+        return len(self._search)
+
 
 class Regex(EvaluationOperator, _FieldOperator):
     def __init__(self, field: str, pattern: str, case_insensitive: bool = False, multiline: bool = False,
@@ -66,3 +69,6 @@ class Regex(EvaluationOperator, _FieldOperator):
                 '$options': self._options,
             }
         }
+
+    def __len__(self) -> int:
+        return len(self._pattern)

@@ -8,7 +8,8 @@ from ._operator import FieldOperator as _FieldOperator
 
 
 class GeospatialOperator(_FieldOperator):
-    pass
+    def __len__(self) -> int:
+        return 1
 
 
 class Near(GeospatialOperator):
