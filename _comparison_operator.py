@@ -4,12 +4,12 @@ __author__ = 'Oleksandr Shepetko'
 __email__ = 'a@shepetko.com'
 __license__ = 'MIT'
 
-from typing import Any as _Any
-from ._operator import FieldOperator as _FieldOperator
+from typing import Any
+from ._operator import FieldOperator
 
 
-class ComparisonOperator(_FieldOperator):
-    def __init__(self, field: str, arg: _Any):
+class ComparisonOperator(FieldOperator):
+    def __init__(self, field: str, arg: Any):
         """Init
         """
         super().__init__(field)
@@ -17,11 +17,11 @@ class ComparisonOperator(_FieldOperator):
         self._arg = arg
 
     @property
-    def arg(self) -> _Any:
+    def arg(self) -> Any:
         return self._arg
 
     @arg.setter
-    def arg(self, value: _Any):
+    def arg(self, value: Any):
         self._arg = value
 
     def compile(self) -> dict:

@@ -4,10 +4,10 @@ __author__ = 'Oleksandr Shepetko'
 __email__ = 'a@shepetko.com'
 __license__ = 'MIT'
 
-from ._operator import FieldOperator as _FieldOperator
+from ._operator import FieldOperator
 
 
-class GeospatialOperator(_FieldOperator):
+class GeospatialOperator(FieldOperator):
     def __len__(self) -> int:
         return 1
 

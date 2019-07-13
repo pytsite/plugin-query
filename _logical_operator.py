@@ -4,21 +4,21 @@ __author__ = 'Oleksandr Shepetko'
 __email__ = 'a@shepetko.com'
 __license__ = 'MIT'
 
-from typing import Union as _Union, Iterator as _Iterator
-from ._operator import Operator as _Operator
+from typing import Union, Iterator
+from ._operator import Operator
 
 
-class LogicalOperator(_Operator):
-    def __init__(self, operators: _Union[_Operator, _Iterator[_Operator]]):
+class LogicalOperator(Operator):
+    def __init__(self, operators: Union[Operator, Iterator[Operator]]):
         """Init
         """
-        self._operators = []    # type: [_Operator]
+        self._operators = []  # type: [Operator]
         for op in operators if hasattr(operators, '__iter__') else [operators]:
             self.add(op)
 
-    def add(self, op: _Operator):
-        if not isinstance(op, _Operator):
-            raise TypeError('{} expected, got {}'.format(_Operator, type(op)))
+    def add(self, op: Operator):
+        if not isinstance(op, Operator):
+            raise TypeError('{} expected, got {}'.format(Operator, type(op)))
 
         self._operators.append(op)
 

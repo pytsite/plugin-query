@@ -4,13 +4,13 @@ __author__ = 'Oleksandr Shepetko'
 __email__ = 'a@shepetko.com'
 __license__ = 'MIT'
 
-from ._operator import Operator as _Operator, FieldOperator as _FieldOperator
+from ._operator import Operator, FieldOperator
 
 _SUPPORTED_LANGS = ('da', 'nl', 'en', 'fi', 'fr', 'de', 'hu', 'it', 'nb', 'pt', 'ro', 'ru', 'es', 'sv', 'tr',
                     'ara', 'prs', 'pes', 'urd', 'zhs', 'zht')
 
 
-class EvaluationOperator(_Operator):
+class EvaluationOperator(Operator):
     pass
 
 
@@ -39,7 +39,7 @@ class Text(EvaluationOperator):
         return len(self._search)
 
 
-class Regex(EvaluationOperator, _FieldOperator):
+class Regex(EvaluationOperator, FieldOperator):
     def __init__(self, field: str, pattern: str, case_insensitive: bool = False, multiline: bool = False,
                  dot_all: bool = False, verbose: bool = False):
         """Init

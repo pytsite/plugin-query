@@ -4,42 +4,42 @@ __author__ = 'Oleksandr Shepetko'
 __email__ = 'a@shepetko.com'
 __license__ = 'MIT'
 
-from typing import Union as _Union, List as _List, Iterator as _Iterator
-from pytsite import util as _util
-from ._operator import Operator as _Operator, FieldOperator as _FieldOperator
-from ._logical_operator import LogicalOperator as _LogicalOperator
+from typing import Union, List, Iterator
+from dicmer import dict_merge
+from ._operator import Operator, FieldOperator
+from ._logical_operator import LogicalOperator
 
 
 class Query:
-    def __init__(self, operators: _Union[_Operator, _Iterator[_Operator]] = None):
+    def __init__(self, operators: Union[Operator, Iterator[Operator]] = None):
         """Init
         """
-        self._operators = []  # type: _List[_Operator]
+        self._operators = []  # type: List[Operator]
 
         if operators:
             for op in operators if hasattr(operators, '__iter__') else [operators]:
                 self.add(op)
 
     @property
-    def operators(self) -> _List[_Operator]:
+    def operators(self) -> List[Operator]:
         """Get operators
         """
         return self._operators
 
     @operators.setter
-    def operators(self, value: _List[_Operator]):
+    def operators(self, value: List[Operator]):
         """Set operators
         """
         self._operators = value
 
-    def add(self, op: _Operator):
+    def add(self, op: Operator):
         """Add an operator
         """
         self._operators.append(op)
 
         return op
 
-    def rm_field(self, field: str, _root: _Operator = None):
+    def rm_field(self, field: str, _root: Operator = None):
         """Remove all FieldOperators of particular field
         """
         if _root is None:
@@ -47,9 +47,9 @@ class Query:
 
         ops_to_del = []
         for i, op in enumerate(_root):
-            if isinstance(op, _LogicalOperator):
+            if isinstance(op, LogicalOperator):
                 self.rm_field(field, op)
-            elif isinstance(op, _FieldOperator) and op.field == field:
+            elif isinstance(op, FieldOperator) and op.field == field:
                 ops_to_del.append(i)
 
         for i in ops_to_del:
@@ -63,7 +63,7 @@ class Query:
         r = {}
 
         for op in self:
-            r = _util.dict_merge(r, op.compile())
+            r = dict_merge(r, op.compile())
 
         return r
 
@@ -73,7 +73,7 @@ class Query:
     def __len__(self) -> int:
         return len(self.compile())
 
-    def __iter__(self) -> _Iterator[_Operator]:
+    def __iter__(self) -> Iterator[Operator]:
         return iter(self._operators)
 
     def __str__(self) -> str:
